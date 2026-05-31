@@ -20,8 +20,9 @@ public class ItemController {
 	}
 
 	@GetMapping("/item-add")
-	public String showAddItemForm(Model model) {
-		model.addAttribute("categories", categoryService.getAllCategories());
+	public String showAddItemForm(@RequestParam Integer categoryId,
+			Model model) {
+		model.addAttribute("categoryId", categoryId);
 		return "item-add";
 	}
 
@@ -31,6 +32,6 @@ public class ItemController {
 			@RequestParam Integer price,
 			@RequestParam Integer categoryId) {
 		itemService.addItem(name, price, categoryId);
-		return "redirect:/summary-top";
+		return "redirect:/summary-top?categoryId=" + categoryId;
 	}
 }

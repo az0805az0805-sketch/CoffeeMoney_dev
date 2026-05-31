@@ -18,10 +18,18 @@
 		<a th:href="@{/summary-top(categoryId=${cat.id})}">
 			<button th:text="${cat.name}"></button>
 		</a>
+
+		<form th:action="@{/category/delete}" method="post" style="display:inline;"
+			onsubmit="return confirmDelete('このカテゴリーを削除すると関連アイテムも消えます。削除しますか？');">
+			<input type="hidden" name="categoryId" th:value="${cat.id}">
+			<button type="submit">削除</button>
+		</form>
 	</div>
 	<hr>
 
 	<a th:href="@{/category-add}">カテゴリーを追加する</a>
+
+	<script src="/deletemes.js"></script>
 </body>
 
 </html>

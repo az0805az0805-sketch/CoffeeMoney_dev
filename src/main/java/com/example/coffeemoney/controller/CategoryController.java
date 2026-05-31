@@ -28,4 +28,11 @@ public class CategoryController {
 		return "redirect:/";
 	}
 
+	//カテゴリー削除
+	@PostMapping("/category/delete")
+	public String deleteCategory(@RequestParam Integer categoryId) {
+		categoryService.deleteCategory(categoryId);
+		return "redirect:/";
+	}
+
 }

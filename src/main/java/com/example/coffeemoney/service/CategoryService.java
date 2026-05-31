@@ -5,15 +5,20 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.example.coffeemoney.model.entity.CategoryEntity;
+import com.example.coffeemoney.model.entity.ItemEntity;
 import com.example.coffeemoney.repository.CategoryRepository;
+import com.example.coffeemoney.repository.ItemRepository;
 
 @Service
 public class CategoryService {
 
 	private final CategoryRepository categoryRepository;
+	private final ItemRepository itemRepository;
 
-	public CategoryService(CategoryRepository categoryRepository) {
+	public CategoryService(CategoryRepository categoryRepository,
+			ItemRepository itemRepository) {
 		this.categoryRepository = categoryRepository;
+		this.itemRepository = itemRepository;
 	}
 
 	//カテゴリー一覧（home 用）
@@ -34,4 +39,15 @@ public class CategoryService {
 		category.setBudget(budget != null ? budget : 0);
 		categoryRepository.save(category);
 	}
+
+	//カテゴリー削除(紐ずくアイテムがあればアイテムも削除)	
+	public void deleteCategory(Integer categoryId) {
+		// 先にアイテム削除
+		List<ItemEntity> items = itemRepository.findByCategoryId(categoryId);
+		itemRepository.deleteAll(items);
+
+		// カテゴリー削除
+		categoryRepository.deleteById(categoryId);
+	}
+
 }

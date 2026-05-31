@@ -11,9 +11,11 @@
 	<h2>アイテム追加</h2>
 
 	<form action="/add-item" method="post">
+		<!-- カテゴリーIDを hidden で保持 -->
+		<input type="hidden" name="categoryId" th:value="${categoryId}">
+
 		<label>アイテム名：</label>
 		<input type="text" name="name" required>
-
 		<br><br>
 
 		<label>金額：</label>
@@ -21,18 +23,10 @@
 
 		<br><br>
 
-		<label>カテゴリー：</label>
-		<select name="categoryId" required>
-			<option th:each="cat : ${categories}" th:value="${cat.id}" th:text="${cat.name}">
-			</option>
-		</select>
-
-		<br><br>
-
 		<button type="submit">追加</button>
 	</form>
 
-	<a href="/summary-top">戻る</a>
+	<a th:href="@{/summary-top(categoryId=${categoryId})}">戻る</a>
 
 </body>
 
