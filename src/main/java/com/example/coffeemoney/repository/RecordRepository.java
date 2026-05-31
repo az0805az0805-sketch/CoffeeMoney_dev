@@ -11,7 +11,7 @@ import com.example.coffeemoney.model.dto.ItemSummaryDto;
 import com.example.coffeemoney.model.dto.MonthSummaryDto;
 import com.example.coffeemoney.model.entity.RecordEntity;
 
-public interface RecordRepository extends JpaRepository<RecordEntity, Long> {
+public interface RecordRepository extends JpaRepository<RecordEntity, Integer> {
 
 	// アイテム別の支出一覧
 	List<RecordEntity> findByItemId(Long itemId);

@@ -4,21 +4,21 @@
 <head>
 	<meta charset="UTF-8">
 	<title>title</title>
+	<link rel="stylesheet" th:href="@{/css/count.css}">
 </head>
 
 <body>
 
-	<h1>CoffeeMoney <a th:href="@{/settings}">
+	<h1>CoffeeMoney <a th:href="@{/item-add}">
 			<button>アイテムを追加</button>
 		</a></h1>
 
 	<hr>
 	<!-- 現在日時 -->
 	<p><span id="now">現在日時</span></p>
-
-	<h2>カウントボタン</h2>
-
 	<div th:each="item : ${items}">
+		<p class="category-label" th:text="${item.category.name}"></p>
+
 		<form action="/add-record" method="post">
 			<input type="hidden" name="itemId" th:value="${item.id}">
 			<button type="submit" class="item-button" th:text="${item.name}"></button>
@@ -32,9 +32,8 @@
 	<p>残高：<span th:text="${balance}"></span> 円</p>
 
 	<!-- 詳細画面へ遷移 -->
-	<a th:href="@{/summary/month}">
-		<button>詳細確認</button>
-	</a>
+	<a href="/records" class="detail-button">詳細を見る</a>
+
 
 	<script src="/clock.js"></script>
 </body>

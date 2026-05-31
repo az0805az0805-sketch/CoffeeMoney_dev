@@ -2,6 +2,7 @@ package com.example.coffeemoney.service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -42,6 +43,18 @@ public class RecordService {
 				.stream()
 				.mapToInt(RecordEntity::getAmount)
 				.sum();
+	}
+
+	//当月の一覧を返す
+	public List<RecordEntity> getMonthlyRecords() {
+		LocalDateTime start = LocalDate.now().withDayOfMonth(1).atStartOfDay();
+		LocalDateTime end = start.plusMonths(1);
+
+		return recordRepository.findByCreatedAtBetween(start, end);
+	}
+
+	public void deleteRecord(Integer recordId) {
+		recordRepository.deleteById(recordId);
 	}
 
 }
