@@ -34,7 +34,12 @@
 
 			</td>
 		</tr>
-
+		<!-- レコードが 0 件のとき -->
+		<tr th:if="${records.size() == 0}">
+			<td colspan="4" style="text-align:center; padding: 20px;">
+				この月の記録はありません
+			</td>
+		</tr>
 	</table>
 
 	<div class="summary-box">

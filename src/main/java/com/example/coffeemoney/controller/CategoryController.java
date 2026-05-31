@@ -1,6 +1,7 @@
 package com.example.coffeemoney.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,6 +34,24 @@ public class CategoryController {
 	public String deleteCategory(@RequestParam Integer categoryId) {
 		categoryService.deleteCategory(categoryId);
 		return "redirect:/";
+	}
+
+	@GetMapping("/category/edit")
+	public String editCategory(@RequestParam Integer id, Model model) {
+		model.addAttribute("category", categoryService.getCategory(id));
+		return "edit-category";
+	}
+
+	//カテゴリー更新
+	@PostMapping("/category/update")
+	public String updateCategory(
+			@RequestParam Integer id,
+			@RequestParam String name,
+			@RequestParam Integer budget) {
+
+		categoryService.updateCategory(id, name, budget);
+
+		return "redirect:/home";
 	}
 
 }
