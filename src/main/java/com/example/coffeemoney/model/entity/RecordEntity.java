@@ -18,21 +18,21 @@ import lombok.Data;
 public class RecordEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Integer id;
 
 	@ManyToOne
 	@JoinColumn(name = "item_id")
 	private ItemEntity item;
 
-	private int amount;
+	private Integer amount;
 
 	private LocalDateTime createdAt = LocalDateTime.now();
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -44,7 +44,7 @@ public class RecordEntity {
 		this.item = item;
 	}
 
-	public int getAmount() {
+	public Integer getAmount() {
 		return amount;
 	}
 
