@@ -3,6 +3,7 @@
 .detail-button {
 	display: inline-block;
 	padding: 10px 20px;
+	margin-bottom: 12px;
 	background-color: #4CAF50;
 	/* 緑系 */
 	color: white;
@@ -24,6 +25,30 @@
 	/* 押した感 */
 	background-color: #3e8e41;
 }
+
+.btn-back {
+	display: inline-block;
+	padding: 10px 20px;
+	background-color: #4CAF50;
+	color: white;
+	text-decoration: none;
+	border-radius: 6px;
+	font-weight: bold;
+	transition: 0.2s;
+}
+
+.btn-back:hover {
+	background-color: #45a049;
+	transform: translateY(-2px);
+}
+
+.btn-back:active {
+	transform: translateY(0);
+	background-color: #3e8e41;
+}
+
+
+
 
 .item-button {
 	display: inline-block;

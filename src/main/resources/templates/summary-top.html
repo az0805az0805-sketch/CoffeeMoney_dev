@@ -3,37 +3,47 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>title</title>
+	<title>カウント画面</title>
 	<link rel="stylesheet" th:href="@{/css/count.css}">
 </head>
 
 <body>
 
-	<h1>CoffeeMoney <a th:href="@{/item-add}">
+	<h1>
+		CoffeeMoney
+		<a th:href="@{/item-add}">
 			<button>アイテムを追加</button>
-		</a></h1>
+		</a>
+	</h1>
 
 	<hr>
+
+	<!-- カテゴリー名 -->
+	<h2 th:text="${category.name} + ' のカウント'"></h2>
+
 	<!-- 現在日時 -->
 	<p><span id="now">現在日時</span></p>
-	<div th:each="item : ${items}">
-		<p class="category-label" th:text="${item.category.name}"></p>
 
-		<form action="/add-record" method="post">
+	<!-- アイテム一覧（押すとカウント） -->
+	<div th:each="item : ${items}">
+		<form th:action="@{/record/add}" method="post">
 			<input type="hidden" name="itemId" th:value="${item.id}">
+			<input type="hidden" name="categoryId" th:value="${category.id}">
 			<button type="submit" class="item-button" th:text="${item.name}"></button>
 		</form>
-
 	</div>
+
+	<hr>
+
 	<!-- 当月の累計 -->
 	<p>今月の合計：<span th:text="${monthlyTotal}"></span> 円</p>
 
 	<!-- 残高（予算 - 累計） -->
-	<p>残高：<span th:text="${balance}"></span> 円</p>
+	<p>残高：<span th:text="${category.budget - monthlyTotal}"></span> 円</p>
 
 	<!-- 詳細画面へ遷移 -->
-	<a href="/records" class="detail-button">詳細を見る</a>
-
+	<a th:href="@{/records(categoryId=${category.id})}" class="detail-button">詳細を見る</a>
+	<a th:href="@{/}" class="btn-back">ホームに戻る</a>
 
 	<script src="/clock.js"></script>
 </body>

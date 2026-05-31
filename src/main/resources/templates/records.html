@@ -28,8 +28,10 @@
 			<td>
 				<form action="/delete-record" method="post">
 					<input type="hidden" name="recordId" th:value="${record.id}">
+					<input type="hidden" name="categoryId" th:value="${categoryId}">
 					<button type="submit" class="delete-button">削除</button>
 				</form>
+
 			</td>
 		</tr>
 
@@ -42,7 +44,8 @@
 	</div>
 
 	<a href="/month-select" class="link-button">他の月を見る</a>
-	<a href="/summary-top" class="back-button">戻る</a>
+	<a th:href="@{/summary-top(categoryId=${categoryId})}" class="detail-button">戻る</a>
+
 
 </body>
 

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>*** CoffeeMoney ***</title>
+</head>
+
+<body>
+
+	<h2>*** CoffeeMoney ***</h2>
+	<p>ちょっとした支出カウントアプリ<br>
+		ちょこちょこ買うものが月間でいくらになるのかカウントしてみよう</p><br>
+	<p>↓SELECT CATEGORY↓
+	</p>
+
+	<div th:each="cat : ${categories}">
+		<a th:href="@{/summary-top(categoryId=${cat.id})}">
+			<button th:text="${cat.name}"></button>
+		</a>
+	</div>
+	<hr>
+
+	<a th:href="@{/category-add}">カテゴリーを追加する</a>
+</body>
+
+</html>

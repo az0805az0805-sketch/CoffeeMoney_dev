@@ -13,15 +13,19 @@ import com.example.coffeemoney.repository.RecordRepository;
 
 @Service
 public class RecordService {
+
 	private final RecordRepository recordRepository;
 	private final ItemRepository itemRepository;
 
-	public RecordService(RecordRepository recordRepository, ItemRepository itemRepository) {
+	public RecordService(RecordRepository recordRepository,
+			ItemRepository itemRepository) {
 		this.recordRepository = recordRepository;
 		this.itemRepository = itemRepository;
 	}
 
-	//itemボタンが押されたらレコード作成
+	/* ============================
+	   1. レコード作成
+	   ============================ */
 	public void addRecord(Integer itemId) {
 
 		ItemEntity item = itemRepository.findById(itemId)
@@ -35,9 +39,23 @@ public class RecordService {
 		recordRepository.save(record);
 	}
 
+	/* ============================
+	   2. 当月の期間取得（共通化）
+	   ============================ */
+	private LocalDateTime getMonthStart() {
+		return LocalDate.now().withDayOfMonth(1).atStartOfDay();
+	}
+
+	private LocalDateTime getMonthEnd() {
+		return getMonthStart().plusMonths(1);
+	}
+
+	/* ============================
+	   3. 当月の合計（全体）
+	   ============================ */
 	public Integer getMonthlyTotal() {
-		LocalDateTime start = LocalDate.now().withDayOfMonth(1).atStartOfDay();
-		LocalDateTime end = start.plusMonths(1);
+		LocalDateTime start = getMonthStart();
+		LocalDateTime end = getMonthEnd();
 
 		return recordRepository.findByCreatedAtBetween(start, end)
 				.stream()
@@ -45,16 +63,39 @@ public class RecordService {
 				.sum();
 	}
 
-	//当月の一覧を返す
-	public List<RecordEntity> getMonthlyRecords() {
-		LocalDateTime start = LocalDate.now().withDayOfMonth(1).atStartOfDay();
-		LocalDateTime end = start.plusMonths(1);
+	/* ============================
+	   4. 当月の合計（カテゴリー別）
+	   ============================ */
+	public Integer getMonthlyTotalByCategory(Integer categoryId) {
+		LocalDateTime start = getMonthStart();
+		LocalDateTime end = getMonthEnd();
 
-		return recordRepository.findByCreatedAtBetween(start, end);
+		return recordRepository.getMonthlyTotalByCategory(categoryId, start, end);
 	}
 
+	/* ============================
+	   5. 当月のレコード一覧（全体）
+	   ============================ */
+	public List<RecordEntity> getMonthlyRecords() {
+		return recordRepository.findByCreatedAtBetween(getMonthStart(), getMonthEnd());
+	}
+
+	/* ============================
+	   6. 当月のレコード一覧（カテゴリー別）
+	   ============================ */
+	public List<RecordEntity> getMonthlyRecords(Integer categoryId) {
+		LocalDateTime start = getMonthStart();
+		LocalDateTime end = getMonthEnd();
+		return recordRepository.findByItem_Category_IdAndCreatedAtBetween(categoryId,
+				start,
+				end);
+
+	}
+
+	/* ============================
+	   7. レコード削除
+	   ============================ */
 	public void deleteRecord(Integer recordId) {
 		recordRepository.deleteById(recordId);
 	}
-
 }
