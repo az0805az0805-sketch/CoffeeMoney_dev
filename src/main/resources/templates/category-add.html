@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>カテゴリー追加</title>
+</head>
+
+<body>
+
+	<h2>カテゴリー追加</h2>
+
+		<form action="/add-category" method="post">
+			<label>カテゴリー名：</label>
+			<input type="text" name="name" required>
+
+			<br><br>
+
+			<label>予算：</label>
+			<input type="number" name="budget" placeholder="例：3000">
+
+			<br><br>
+
+			<button type="submit">追加</button>
+		</form>
+
+		<br>
+		<a href="/item-add">アイテム追加に戻る</a>
+
+</body>
+
+</html>

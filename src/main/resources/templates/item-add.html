@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>アイテム追加</title>
+</head>
+
+<body>
+
+	<h2>アイテム追加</h2>
+
+	<form action="/add-item" method="post">
+		<!-- カテゴリーIDを hidden で保持 -->
+		<input type="hidden" name="categoryId" th:value="${categoryId}">
+
+		<label>アイテム名：</label>
+		<input type="text" name="name" required>
+		<br><br>
+
+		<label>金額：</label>
+		<input type="number" name="price" required>
+
+		<br><br>
+
+		<button type="submit">追加</button>
+	</form>
+
+	<a th:href="@{/summary-top(categoryId=${categoryId})}">戻る</a>
+
+</body>
+
+</html>

@@ -3,60 +3,66 @@ package com.example.coffeemoney.controller;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.service.registry.ImportHttpServices;
-import org.springframework.web.service.registry.ImportHttpServices.Container;
 
 import com.example.coffeemoney.model.entity.ItemEntity;
 import com.example.coffeemoney.repository.ItemRepository;
+import com.example.coffeemoney.service.CategoryService;
 import com.example.coffeemoney.service.RecordService;
-import com.example.coffeemoney.service.SummaryService;
 
-@Container(value = { @ImportHttpServices })
+@Controller
 public class CountController {
+
 	private final ItemRepository itemRepository;
 	private final RecordService recordService;
-	private final SummaryService summaryService;
+	private final CategoryService categoryService;
 
 	public CountController(ItemRepository itemRepository,
 			RecordService recordService,
-			SummaryService summaryService) {
+			CategoryService categoryService) {
 		this.itemRepository = itemRepository;
 		this.recordService = recordService;
-		this.summaryService = summaryService;
+		this.categoryService = categoryService;
+	}
+	//ホーム画面
+	@GetMapping("/")
+	public String home(Model model) {
+		model.addAttribute("categories", categoryService.getAllCategories());
+		return "home";
 	}
 
-	// カテゴリー別のカウント画面
-	@GetMapping("/count")
-	public String countPage(
-			@RequestParam Long categoryId,
+	//カウント画面（summary-top）
+	@GetMapping("/summary-top")
+	public String showSummary(
+			@RequestParam Integer categoryId,
 			Model model) {
 
+		var category = categoryService.getCategory(categoryId);
+		model.addAttribute("category", category);
+
 		List<ItemEntity> items = itemRepository.findByCategoryId(categoryId);
+		model.addAttribute("items", items);
+
+		int monthlyTotal = recordService.getMonthlyTotalByCategory(categoryId);
+		model.addAttribute("monthlyTotal", monthlyTotal);
 
 		model.addAttribute("now", LocalDateTime.now());
-		model.addAttribute("items", items);
-		model.addAttribute("categoryId", categoryId);
 
-		model.addAttribute("monthlyTotal", summaryService.getThisMonthTotal());
-		model.addAttribute("balance", summaryService.getThisMonthBalance());
-
-		return "count";
+		return "summary-top";
 	}
 
-	// ボタン押下 → レコード作成
+	//レコード追加
 	@PostMapping("/record/add")
 	public String addRecord(
-			@RequestParam Long itemId,
-			@RequestParam Long categoryId) {
+			@RequestParam Integer itemId,
+			@RequestParam Integer categoryId) {
 
 		recordService.addRecord(itemId);
 
-		// 同じカテゴリー画面に戻る
-		return "redirect:/count?categoryId=" + categoryId;
+		return "redirect:/summary-top?categoryId=" + categoryId;
 	}
-
 }

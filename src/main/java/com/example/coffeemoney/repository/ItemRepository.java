@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.example.coffeemoney.model.entity.ItemEntity;
 
-public interface ItemRepository extends JpaRepository<ItemEntity, Long> {
+public interface ItemRepository extends JpaRepository<ItemEntity, Integer> {
 
-	List<ItemEntity> findByCategoryId(Long CategoryId);
+	List<ItemEntity> findByCategoryId(Integer CategoryId);
 }
