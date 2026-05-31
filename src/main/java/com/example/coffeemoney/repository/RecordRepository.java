@@ -85,7 +85,8 @@ public interface RecordRepository extends JpaRepository<RecordEntity, Integer> {
 			""")
 	Integer getMonthlyTotal(LocalDateTime start, LocalDateTime end);
 
-	List<RecordEntity> findByCreatedAtBetween(LocalDateTime start, LocalDateTime end);
+    @Query("SELECT r FROM RecordEntity r WHERE r.createdAt BETWEEN :start AND :end")
+    List<RecordEntity> findByCreatedAtBetween(LocalDateTime start, LocalDateTime end);
 
 	@Query("""
 			    SELECT COALESCE(SUM(r.amount), 0)

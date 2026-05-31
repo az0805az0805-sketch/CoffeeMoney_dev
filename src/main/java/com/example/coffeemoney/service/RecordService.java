@@ -112,7 +112,8 @@ public class RecordService {
 		LocalDateTime start = ym.atDay(1).atStartOfDay();
 		LocalDateTime end = ym.atEndOfMonth().atTime(23, 59, 59);
 
-		return recordRepository.sumAmountByCategoryIdAndCreatedAtBetween(categoryId, start, end);
+		Integer total = recordRepository.sumAmountByCategoryIdAndCreatedAtBetween(categoryId, start, end);
+		return total != null ? total : 0;
 	}
 
 	/* ============================
