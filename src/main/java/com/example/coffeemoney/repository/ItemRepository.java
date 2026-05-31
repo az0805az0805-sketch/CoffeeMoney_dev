@@ -2,10 +2,11 @@ package com.example.coffeemoney.repository;
 
 import java.util.List;
 
-import org.hibernate.cache.spi.support.AbstractReadWriteAccess.Item;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ItemRepository extends JpaRepository<Item, Long> {
+import com.example.coffeemoney.model.entity.ItemEntity;
 
-	List<Item> findByCategoryId(Long CategoryId);
+public interface ItemRepository extends JpaRepository<ItemEntity, Long> {
+
+	List<ItemEntity> findByCategoryId(Long CategoryId);
 }

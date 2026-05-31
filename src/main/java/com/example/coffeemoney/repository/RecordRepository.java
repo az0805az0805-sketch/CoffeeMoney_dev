@@ -24,40 +24,40 @@ public interface RecordRepository extends JpaRepository<RecordEntity, Long> {
 			        i.id,
 			        i.name,
 			        i.price,
-			        COUNT(r.id),
-			        SUM(r.amount)
+			        CAST(COUNT(r.id) AS int),
+			        CAST(SUM(r.amount) AS int)
 			    )
 			    FROM RecordEntity r
 			    JOIN r.item i
 			    GROUP BY i.id, i.name, i.price
-			    ORDER BY SUM(r.amount) DESC
+			    ORDER BY CAST(SUM(r.amount) AS int) DESC
 			""")
 	List<ItemSummaryDto> getItemSummary();
 
 	@Query("""
-			    SELECT new com.example.coffeemoney.model.dto.CategorySummaryDto(
-			        c.id,
-			        c.name,
-			        COUNT(r.id),
-			        SUM(r.amount)
-			    )
-			    FROM RecordEntity r
-			    JOIN r.item i
-			    JOIN i.category c
-			    GROUP BY c.id, c.name
-			    ORDER BY SUM(r.amount) DESC
-			""")
-	List<CategorySummaryDto> getCategorySummary();
+		    SELECT new com.example.coffeemoney.model.dto.CategorySummaryDto(
+		        c.name,
+		        CAST(COUNT(r.id) AS int),
+		        CAST(SUM(r.amount) AS int)
+		    )
+		    FROM RecordEntity r
+		    JOIN r.item i
+		    JOIN i.category c
+		    GROUP BY c.id, c.name
+		    ORDER BY CAST(SUM(r.amount) AS int) DESC
+		""")
+		List<CategorySummaryDto> getCategorySummary();
+
 
 	@Query("""
 			    SELECT new com.example.coffeemoney.model.dto.MonthSummaryDto(
-			        FUNCTION('TO_CHAR', r.createdAt, 'YYYY-MM'),
-			        COUNT(r.id),
-			        SUM(r.amount)
+			        CAST(FUNCTION('TO_CHAR', r.createdAt, 'YYYY-MM') AS string),
+			        CAST(COUNT(r.id) AS int),
+			        CAST(SUM(r.amount) AS int)
 			    )
 			    FROM RecordEntity r
-			    GROUP BY FUNCTION('TO_CHAR', r.createdAt, 'YYYY-MM')
-			    ORDER BY FUNCTION('TO_CHAR', r.createdAt, 'YYYY-MM') DESC
+			    GROUP BY CAST(FUNCTION('TO_CHAR', r.createdAt, 'YYYY-MM') AS string)
+			    ORDER BY CAST(FUNCTION('TO_CHAR', r.createdAt, 'YYYY-MM') AS string) DESC
 			""")
 	List<MonthSummaryDto> getMonthSummary();
 

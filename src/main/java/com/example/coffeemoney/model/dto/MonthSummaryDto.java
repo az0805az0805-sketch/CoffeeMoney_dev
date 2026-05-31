@@ -1,12 +1,25 @@
 package com.example.coffeemoney.model.dto;
 
-import java.time.YearMonth;
+public class MonthSummaryDto {
+	private final String month;
+	private final Integer count;
+	private final Integer total;
 
-public record MonthSummaryDto(
-		YearMonth month,
-		Long count,
-		Long total,
-		Long budget,
-		Long balance) {
+	public MonthSummaryDto(String month, Integer count, Integer total) {
+		this.month = month;
+		this.count = count;
+		this.total = total;
+	}
 
+	public String getMonth() {
+		return month;
+	}
+
+	public Integer getCount() {
+		return count;
+	}
+
+	public Integer getTotal() {
+		return total;
+	}
 }
