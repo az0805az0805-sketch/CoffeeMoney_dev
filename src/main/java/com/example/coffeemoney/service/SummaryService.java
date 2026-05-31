@@ -26,8 +26,4 @@ public class SummaryService {
 				.sum();
 	}
 
-	public Long getThisMonthBalance() {
-		Long budget = 30000L; // 仮の予算
-		return budget - getThisMonthTotal();
-	}
 }
