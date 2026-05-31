@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>月選択</title>
+</head>
+
+<body>
+
+	<h2>以前の記録を確認する</h2>
+
+	<p>確認したい月を指定してね</p>
+
+	<form action="/records-by-month" method="get">
+		<input type="hidden" name="categoryId" th:value="${categoryId}">
+
+
+		<select name="year">
+			<option th:each="y : ${years}" th:value="${y}" th:text="${y}"></option>
+		</select><label>年：</label>
+
+
+		<select name="month">
+			<option th:each="m : ${months}" th:value="${m}" th:text="${m}"></option>
+		</select><label>月：</label>
+
+		<button type="submit">表示</button>
+	</form>
+
+
+	<a th:href="@{/summary-top(categoryId=${categoryId})}">戻る</a>
+
+
+</body>
+
+</html>
