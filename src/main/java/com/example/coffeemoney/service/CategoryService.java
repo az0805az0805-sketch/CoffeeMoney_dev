@@ -49,5 +49,17 @@ public class CategoryService {
 		// カテゴリー削除
 		categoryRepository.deleteById(categoryId);
 	}
+	//カテゴリーの更新
+	public void updateCategory(Integer id, String name, Integer budget) {
+
+		//既存のカテゴリーを取得（存在しなければ例外）
+		var category = categoryRepository.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("カテゴリーが見つかりません: " + id));
+
+		category.setName(name);
+		category.setBudget(budget);
+
+		categoryRepository.save(category);
+	}
 
 }

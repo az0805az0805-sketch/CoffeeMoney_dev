@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>カテゴリー編集</title>
+</head>
+
+<body>
+
+	<h2>カテゴリー編集</h2>
+
+	<form th:action="@{/category/update}" method="post">
+		<input type="hidden" name="id" th:value="${category.id}">
+
+		<label>名前：</label>
+		<input type="text" name="name" th:value="${category.name}"><br>
+
+		<label>予算：</label>
+		<input type="number" name="budget" th:value="${category.budget}"><br>
+
+		<button type="submit">更新</button>
+	</form>
+
+	<a th:href="@{/}">戻る</a>
+
+</body>
+
+</html>
