@@ -31,4 +31,13 @@ public class RecordService {
 
 		recordRepository.save(record);
 	}
+
+	public int getMonthlyTotal() {
+		LocalDateTime now = LocalDateTime.now();
+		LocalDateTime start = now.withDayOfMonth(1).toLocalDate().atStartOfDay();
+		LocalDateTime end = start.plusMonths(1);
+
+		return recordRepository.getMonthlyTotal(start, end);
+	}
+
 }

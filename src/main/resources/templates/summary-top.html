@@ -8,13 +8,13 @@
 
 <body>
 
-	<h1>CoffeeMoney	<a th:href="@{/settings}">
+	<h1>CoffeeMoney <a th:href="@{/settings}">
 			<button>アイテムを追加</button>
 		</a></h1>
 
 	<hr>
 	<!-- 現在日時 -->
-	<p><span th:text="${now}">日時</span></p>
+	<p><span id="now">現在日時</span></p>
 
 	<h2>カウントボタン</h2>
 
@@ -38,6 +38,7 @@
 		<button>詳細確認</button>
 	</a>
 
+	<script src="/clock.js"></script>
 </body>
 
 </html>
