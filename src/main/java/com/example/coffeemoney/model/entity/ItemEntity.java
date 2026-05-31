@@ -1,24 +1,23 @@
 package com.example.coffeemoney.model.entity;
 
-import java.util.Locale.Category;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-
-import org.springframework.data.annotation.Id;
+import jakarta.persistence.Table;
 
 import lombok.Data;
 
 @Entity
 @Data
+@Table(name = "item")
 public class ItemEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Integer id;
 
 	@Column(nullable = false)
 	private String name;
@@ -28,5 +27,39 @@ public class ItemEntity {
 
 	@ManyToOne
 	@JoinColumn(name = "category_id", nullable = false)
-	private Category category;
+	private CategoryEntity category;
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Integer getPrice() {
+		return price;
+	}
+
+	public void setPrice(Integer price) {
+		this.price = price;
+	}
+
+	public CategoryEntity getCategory() {
+		return category;
+	}
+
+	public void setCategory(CategoryEntity category) {
+		this.category = category;
+	}
+	
+	
 }
