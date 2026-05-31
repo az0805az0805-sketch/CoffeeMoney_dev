@@ -1,5 +1,6 @@
 package com.example.coffeemoney.service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.springframework.stereotype.Service;
@@ -19,10 +20,11 @@ public class RecordService {
 		this.itemRepository = itemRepository;
 	}
 
-	public void addRecord(Long itemId) {
+	//itemボタンが押されたらレコード作成
+	public void addRecord(Integer itemId) {
 
 		ItemEntity item = itemRepository.findById(itemId)
-				.orElseThrow();
+				.orElseThrow(() -> new IllegalArgumentException("Item not found"));
 
 		RecordEntity record = new RecordEntity();
 		record.setItem(item);
@@ -32,12 +34,14 @@ public class RecordService {
 		recordRepository.save(record);
 	}
 
-	public int getMonthlyTotal() {
-		LocalDateTime now = LocalDateTime.now();
-		LocalDateTime start = now.withDayOfMonth(1).toLocalDate().atStartOfDay();
+	public Integer getMonthlyTotal() {
+		LocalDateTime start = LocalDate.now().withDayOfMonth(1).atStartOfDay();
 		LocalDateTime end = start.plusMonths(1);
 
-		return recordRepository.getMonthlyTotal(start, end);
+		return recordRepository.findByCreatedAtBetween(start, end)
+				.stream()
+				.mapToInt(RecordEntity::getAmount)
+				.sum();
 	}
 
 }

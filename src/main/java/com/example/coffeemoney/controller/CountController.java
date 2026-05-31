@@ -31,7 +31,7 @@ public class CountController {
 	// カテゴリー別のカウント画面
 	@GetMapping("/count")
 	public String countPage(
-			@RequestParam Long categoryId,
+			@RequestParam Integer categoryId,
 			Model model) {
 
 		List<ItemEntity> items = itemRepository.findByCategoryId(categoryId);
@@ -49,8 +49,8 @@ public class CountController {
 	// ボタン押下 → レコード作成
 	@PostMapping("/record/add")
 	public String addRecord(
-			@RequestParam Long itemId,
-			@RequestParam Long categoryId) {
+			@RequestParam Integer itemId,
+			@RequestParam Integer categoryId) {
 
 		recordService.addRecord(itemId);
 

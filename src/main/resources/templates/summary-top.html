@@ -19,13 +19,11 @@
 	<h2>カウントボタン</h2>
 
 	<div th:each="item : ${items}">
-		<form th:action="@{/record/add}" method="post">
+		<form action="/add-record" method="post">
 			<input type="hidden" name="itemId" th:value="${item.id}">
-			<button type="submit">
-				<span th:text="${item.name}"></span>
-				<span th:text="${item.price} + '円'"></span>
-			</button>
+			<button type="submit" class="item-button" th:text="${item.name}"></button>
 		</form>
+
 	</div>
 	<!-- 当月の累計 -->
 	<p>今月の合計：<span th:text="${monthlyTotal}"></span> 円</p>
