@@ -2,6 +2,7 @@ package com.example.coffeemoney.service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.YearMonth;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -90,6 +91,28 @@ public class RecordService {
 				start,
 				end);
 
+	}
+
+	//指定した月のレコード一覧
+	public List<RecordEntity> getRecordsByCategoryAndMonth(Integer categoryId, Integer year, Integer month) {
+
+		YearMonth ym = YearMonth.of(year, month);
+
+		LocalDateTime start = ym.atDay(1).atStartOfDay();
+		LocalDateTime end = ym.atEndOfMonth().atTime(23, 59, 59);
+
+		return recordRepository.findByItem_Category_IdAndCreatedAtBetween(categoryId, start, end);
+	}
+
+	//指定した月の合計金額
+	public int getMonthlyTotalByCategoryAndMonth(Integer categoryId, Integer year, Integer month) {
+
+		YearMonth ym = YearMonth.of(year, month);
+
+		LocalDateTime start = ym.atDay(1).atStartOfDay();
+		LocalDateTime end = ym.atEndOfMonth().atTime(23, 59, 59);
+
+		return recordRepository.sumAmountByCategoryIdAndCreatedAtBetween(categoryId, start, end);
 	}
 
 	/* ============================

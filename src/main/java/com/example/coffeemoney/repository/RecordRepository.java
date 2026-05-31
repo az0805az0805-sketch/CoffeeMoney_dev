@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.example.coffeemoney.model.dto.CategorySummaryDto;
 import com.example.coffeemoney.model.dto.ItemSummaryDto;
@@ -16,11 +17,24 @@ public interface RecordRepository extends JpaRepository<RecordEntity, Integer> {
 	// アイテム別の支出一覧
 	List<RecordEntity> findByItemId(Integer itemId);
 
-	//レコードの月別かつカテゴリー別一覧
+	//指定月＋カテゴリーのレコード一覧
 	List<RecordEntity> findByItem_Category_IdAndCreatedAtBetween(
 			Integer categoryId,
 			LocalDateTime start,
 			LocalDateTime end);
+	
+	@Query("""
+			    SELECT COALESCE(SUM(r.amount), 0)
+			    FROM RecordEntity r
+			    JOIN r.item i
+			    JOIN i.category c
+			    WHERE c.id = :categoryId
+			      AND r.createdAt BETWEEN :start AND :end
+			""")
+	int sumAmountByCategoryIdAndCreatedAtBetween(
+			@Param("categoryId") Integer categoryId,
+			@Param("start") LocalDateTime start,
+			@Param("end") LocalDateTime end);
 
 	@Query("""
 			    SELECT new com.example.coffeemoney.model.dto.ItemSummaryDto(
