@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <head>
 	<meta charset="UTF-8">
@@ -36,12 +37,10 @@
 	</div>
 
 	<hr>
+	<p class="badge-total">今月の合計：<span th:text="${monthlyTotal}"></span> 円</p>
+	<p class="badge-balance">残高：<span th:text="${category.budget - monthlyTotal}"></span> 円</p>
 
-	<!-- 当月の累計 -->
-	<p>今月の合計：<span th:text="${monthlyTotal}"></span> 円</p>
 
-	<!-- 残高（予算 - 累計） -->
-	<p>残高：<span th:text="${category.budget - monthlyTotal}"></span> 円</p>
 
 	<!-- 詳細画面へ遷移 -->
 	<a th:href="@{/records(categoryId=${category.id})}" class="detail-button">詳細を見る</a>
