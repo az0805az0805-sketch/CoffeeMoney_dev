@@ -5,11 +5,14 @@
 	<meta charset="UTF-8">
 	<title>CoffeeMoney</title>
 	<link rel="stylesheet" th:href="@{/css/home.css}">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
 </head>
 
 <body>
 
-	<h2> CoffeeMoney </h2>
+	<h2 class="app-header">CoffeeMoney</h2>
+	
 	<p class="description">ちょっとした支出カウントアプリ<br>
 		ちょこちょこ買うものが月間でいくらになるのかカウントしてみよう</p><br>
 	<p class="blink select-title">↓SELECT CATEGORY↓</p>
@@ -38,7 +41,7 @@
 
 	<a th:href="@{/category-add}" class="add-category-icon-btn">
 		<img th:src="@{/images/coffee_chilled_cup.png}" alt="coffee" class="category-icon">
-	    <span class="add-icon"></span> カテゴリーを追加
+		<span class="add-icon"></span> カテゴリーを追加
 	</a>
 
 

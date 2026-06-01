@@ -154,62 +154,101 @@ h2 {
 /* ===== スマホ最適化（幅600px以下） ===== */
 @media (max-width: 600px) {
 
+	/* 全体の余白と文字サイズを少し縮小 */
 	body {
 		padding: 20px;
-	}
-
-	h2 {
-		font-size: 22px;
-	}
-
-	.description {
-		font-size: 14px;
-	}
-
-	.select-title {
-		font-size: 18px;
-	}
-
-	/* カテゴリー行を縦並びに */
-	.category-row {
-		flex-direction: column;
-		align-items: flex-start;
-		gap: 12px;
-		padding: 18px;
-	}
-
-	.category-link {
-		padding: 14px 0;
-	}
-
-	.category-icon {
-		width: 34px;
-	}
-
-	.category-name {
-		font-size: 20px;
-	}
-
-	/* ボタンを大きくしてタップしやすく */
-	.edit-button,
-	.delete-button {
-		padding: 12px 20px;
 		font-size: 16px;
 	}
 
-	/* ボタンを横並びのまま左寄せ */
-	.category-actions {
-		width: 100%;
-		justify-content: flex-start;
-		gap: 16px;
+	/* タイトルを少し小さく */
+	h2 {
+		font-size: 26px;
+		margin-bottom: 14px;
 	}
 
-	.add-category-btn,
-	.add-category-btn-green,
-	.add-category-icon-btn {
+	/* 説明文 */
+	.description {
+		font-size: 15px;
+		line-height: 1.6;
+		margin-bottom: 20px;
+	}
+
+	/* SELECT CATEGORY */
+	.select-title {
+		font-size: 20px;
+		margin-top: 12px;
+		margin-bottom: 16px;
+	}
+
+	/* カテゴリー行をアプリのカードUIに */
+	.category-row {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
 		width: 100%;
+		padding: 20px;
+		border-radius: 16px;
+		background: #ffffff;
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+		gap: 14px;
+		margin-bottom: 20px;
+	}
+
+	/* カテゴリー名＋アイコン */
+	.category-link {
+		display: flex;
+		align-items: center;
+		gap: 14px;
+		width: 100%;
+		padding: 0;
+	}
+
+	.category-icon {
+		width: 40px;
+		height: auto;
+	}
+
+	.category-name {
+		font-size: 26px;
+		font-weight: bold;
+	}
+
+	/* 編集・削除を縦並びに */
+	.category-actions {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		gap: 10px;
+		margin-top: 4px;
+	}
+
+	/* form も幅100%に */
+	.category-actions form {
+		width: 100%;
+	}
+
+	/* 編集ボタン */
+	.edit-button {
+		display: block;
+		width: 100%;
+		padding: 12px 0;
+		font-size: 16px;
+		border-radius: 10px;
+		background: #9e9e9e;
+		color: #fff;
 		text-align: center;
-		padding: 14px 0;
-		font-size: 18px;
+	}
+
+	/* 削除ボタン */
+	.delete-button {
+		display: block;
+		width: 100%;
+		padding: 12px 0;
+		font-size: 16px;
+		border-radius: 10px;
+		background: #d9534f;
+		color: #fff;
+		text-align: center;
+		border: none;
 	}
 }
