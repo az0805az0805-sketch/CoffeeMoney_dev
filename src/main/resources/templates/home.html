@@ -10,32 +10,37 @@
 <body>
 
 	<h2> CoffeeMoney </h2>
-	<p>ちょっとした支出カウントアプリ<br>
+	<p class="description">ちょっとした支出カウントアプリ<br>
 		ちょこちょこ買うものが月間でいくらになるのかカウントしてみよう</p><br>
 	<p class="blink select-title">↓SELECT CATEGORY↓</p>
 
 	<div class="category-row" th:each="cat : ${categories}">
 
-		<!-- カテゴリーボタン -->
-		<a th:href="@{/summary-top(categoryId=${cat.id})}" class="category-button">
-			<span th:text="${cat.name}"></span>
+		<a th:href="@{/summary-top(categoryId=${cat.id})}" class="category-link">
+			<img th:src="@{/images/coffee_chilled_cup.png}" alt="coffee" class="category-icon">
+			<span class="category-name" th:text="${cat.name}"></span>
 		</a>
+		<div class="category-actions">
+			<!-- 更新 -->
+			<a th:href="@{/category/edit(id=${cat.id})}" class="edit-button">カテゴリーを編集</a>
 
-		<!-- 更新ボタン -->
-		<a th:href="@{/category/edit(id=${cat.id})}" class="edit-button">更新</a>
-
-		<!-- 削除ボタン -->
-		<form th:action="@{/category/delete}" method="post"
-			onsubmit="return confirmDelete('このカテゴリーを削除すると関連アイテムも消えます。削除しますか？');">
-			<input type="hidden" name="categoryId" th:value="${cat.id}">
-			<button type="submit" class="delete-button">削除</button>
-		</form>
+			<!-- 削除 -->
+			<form th:action="@{/category/delete}" method="post"
+				onsubmit="return confirm('このカテゴリーを削除すると関連アイテムも消えます。削除しますか？');">
+				<input type="hidden" name="categoryId" th:value="${cat.id}">
+				<button type="submit" class="delete-button">削除</button>
+			</form>
+		</div>
 
 	</div>
 
 	<hr>
 
-	<a th:href="@{/category-add}">カテゴリーを追加する</a>
+	<a th:href="@{/category-add}" class="add-category-icon-btn">
+		<img th:src="@{/images/coffee_chilled_cup.png}" alt="coffee" class="category-icon">
+	    <span class="add-icon"></span> カテゴリーを追加
+	</a>
+
 
 	<script src="/deletemes.js"></script>
 </body>

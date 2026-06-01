@@ -9,21 +9,21 @@
 
 <body>
 
-	<h1>
-		CoffeeMoney
-		<a th:href="@{/item-add(categoryId=${category.id})}">
-			<button>アイテムを追加</button>
+	<div class="header-row">
+		<h1>Item Count</h1>
+
+		<a th:href="@{/item-add(categoryId=${category.id})}" class="add-item-icon-btn">
+			<img th:src="@{/images/food_americandog.png}" alt="coffee" class="item-icon">
+			アイテムを追加
 		</a>
-	</h1>
+	</div>
 
 	<hr>
-
-	<!-- カテゴリー名 -->
-	<h2 th:text="${category.name} + ' のカウント'"></h2>
-
 	<!-- 現在日時 -->
 	<p><span id="now">現在日時</span></p>
 
+	<!-- カテゴリー名 -->
+	<h2 th:text="${category.name} + ' をカウント'"></h2>
 	<!-- アイテム一覧（押すとカウント） -->
 	<div th:each="item : ${items}">
 		<form th:action="@{/record/add}" method="post">
