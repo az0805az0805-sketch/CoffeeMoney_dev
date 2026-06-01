@@ -34,4 +34,36 @@ public class ItemController {
 		itemService.addItem(name, price, categoryId);
 		return "redirect:/summary-top?categoryId=" + categoryId;
 	}
+
+	//更新画面表示
+	@GetMapping("/item/edit")
+	public String editItem(@RequestParam Integer id, Model model) {
+		var item = itemService.getItem(id);
+		model.addAttribute("item", item);
+		return "edit-item";
+	}
+	//更新処理
+	@PostMapping("/item/update")
+	public String updateItem(
+			@RequestParam Integer id,
+			@RequestParam Integer categoryId,
+			@RequestParam String name,
+			@RequestParam Integer price) {
+
+		itemService.updateItem(id, name, price);
+
+		return "redirect:/summary-top?categoryId=" + categoryId;
+	}
+	//アイテム削除
+	@PostMapping("/item/delete")
+	public String deleteItem(
+	        @RequestParam Integer id,
+	        @RequestParam Integer categoryId) {
+
+	    itemService.deleteItem(id);
+
+	    return "redirect:/summary-top?categoryId=" + categoryId;
+	}
+
+
 }

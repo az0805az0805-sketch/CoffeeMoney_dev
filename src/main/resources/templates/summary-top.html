@@ -30,6 +30,8 @@
 			<input type="hidden" name="itemId" th:value="${item.id}">
 			<input type="hidden" name="categoryId" th:value="${category.id}">
 			<button type="submit" class="item-button" th:text="${item.name}"></button>
+			<a th:href="@{/item/edit(id=${item.id})}" class="edit-button">編集</a>
+
 		</form>
 	</div>
 

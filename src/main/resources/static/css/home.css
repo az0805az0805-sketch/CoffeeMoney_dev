@@ -1,7 +1,31 @@
 @charset "UTF-8";
 
+/* カテゴリー1行のレイアウト */
+.category-row {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin-bottom: 12px;
+}
+
+/* カテゴリーボタン（カテゴリー名） */
+.category-button {
+	background-color: #6fa8dc;
+	color: white;
+	padding: 8px 16px;
+	border-radius: 6px;
+	text-decoration: none;
+	font-weight: bold;
+	border: none;
+}
+
+.category-button:hover {
+	background-color: #3d85c6;
+}
+
+/* 更新ボタン */
 .edit-button {
-	display: inline-block;
+	
 	padding: 4px 8px;
 	background-color: #4CAF50;
 	color: white;
@@ -11,4 +35,52 @@
 
 .edit-button:hover {
 	background-color: #45a049;
+}
+
+/* 削除ボタン */
+.delete-button {
+	background-color: #e06666;
+	color: white;
+	padding: 4px 8px;
+	border: none;
+	border-radius: 4px;
+}
+
+.select-title {
+	font-size: 28px;
+	/* 好きな大きさに変更 */
+	font-weight: bold;
+	/* 太字にするなら */
+}
+
+
+.delete-button:hover {
+	background-color: #cc0000;
+}
+
+.select-title {
+	font-size: 28px;
+	/* 好きな大きさに変更 */
+	font-weight: bold;
+	/* 太字にするなら */
+}
+
+
+.blink {
+	animation: blinkAnime 3s infinite;
+}
+
+@keyframes blinkAnime {
+
+	0% {
+		opacity: 1;
+	}
+
+	50% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 1;
+	}
 }

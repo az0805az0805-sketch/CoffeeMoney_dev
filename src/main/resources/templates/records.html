@@ -45,7 +45,7 @@
 	<div class="summary-box">
 		<p>合計金額：<span th:text="${monthlyTotal}"></span> 円</p>
 		<p>予算：<span th:text="${budget}"></span> 円</p>
-		<p>結果：<span th:text="${balance}"></span> 円</p>
+		<p>残高：<span th:text="${balance}"></span> 円</p>
 	</div>
 
 	<a th:href="@{/month-select(categoryId=${categoryId})}" class="link-button">他の月を見る</a>

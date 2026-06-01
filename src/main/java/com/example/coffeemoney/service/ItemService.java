@@ -37,4 +37,27 @@ public class ItemService {
 
 		itemRepository.save(item);
 	}
+
+	//アイテムを取得
+	public ItemEntity getItem(Integer id) {
+		return itemRepository.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("アイテムが見つかりません: " + id));
+	}
+
+	//既存のitemを更新
+	public void updateItem(Integer id, String name, Integer price) {
+
+		var item = itemRepository.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("アイテムが見つかりません: " + id));
+
+		item.setName(name);
+		item.setPrice(price);
+
+		itemRepository.save(item);
+	}
+	//アイテムを削除
+	public void deleteItem(Integer id) {
+		itemRepository.deleteById(id);
+	}
+
 }

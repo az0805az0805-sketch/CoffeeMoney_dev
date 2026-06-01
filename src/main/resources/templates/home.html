@@ -3,31 +3,36 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>*** CoffeeMoney ***</title>
+	<title>CoffeeMoney</title>
 	<link rel="stylesheet" th:href="@{/css/home.css}">
 </head>
 
 <body>
 
-	<h2>*** CoffeeMoney ***</h2>
+	<h2> CoffeeMoney </h2>
 	<p>ちょっとした支出カウントアプリ<br>
 		ちょこちょこ買うものが月間でいくらになるのかカウントしてみよう</p><br>
-	<p>↓SELECT CATEGORY↓
-	</p>
+	<p class="blink select-title">↓SELECT CATEGORY↓</p>
 
-	<div th:each="cat : ${categories}">
-		<a th:href="@{/summary-top(categoryId=${cat.id})}">
-			<button th:text="${cat.name}"></button>
+	<div class="category-row" th:each="cat : ${categories}">
+
+		<!-- カテゴリーボタン -->
+		<a th:href="@{/summary-top(categoryId=${cat.id})}" class="category-button">
+			<span th:text="${cat.name}"></span>
 		</a>
-		<td>
-			<a th:href="@{/category/edit(id=${cat.id})}" class="edit-button">更新</a>
-		</td>
-		<form th:action="@{/category/delete}" method="post" style="display:inline;"
+
+		<!-- 更新ボタン -->
+		<a th:href="@{/category/edit(id=${cat.id})}" class="edit-button">更新</a>
+
+		<!-- 削除ボタン -->
+		<form th:action="@{/category/delete}" method="post"
 			onsubmit="return confirmDelete('このカテゴリーを削除すると関連アイテムも消えます。削除しますか？');">
 			<input type="hidden" name="categoryId" th:value="${cat.id}">
-			<button type="submit">削除</button>
+			<button type="submit" class="delete-button">削除</button>
 		</form>
+
 	</div>
+
 	<hr>
 
 	<a th:href="@{/category-add}">カテゴリーを追加する</a>

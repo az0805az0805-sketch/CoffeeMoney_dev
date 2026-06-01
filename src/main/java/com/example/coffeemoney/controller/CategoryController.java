@@ -51,7 +51,7 @@ public class CategoryController {
 
 		categoryService.updateCategory(id, name, budget);
 
-		return "redirect:/home";
+		return "redirect:/";
 	}
 
 }
