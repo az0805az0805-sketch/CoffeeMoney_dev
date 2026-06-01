@@ -24,7 +24,7 @@
 	<p><span id="now">現在日時</span></p>
 
 	<!-- カテゴリー名 -->
-	<h2 th:text="${category.name} + ' をカウント'"></h2>
+	<h2 th:text="${category.name} + ' Count'"></h2>
 	<!-- アイテム一覧（押すとカウント） -->
 	<div th:each="item : ${items}">
 		<form th:action="@{/record/add}" method="post">

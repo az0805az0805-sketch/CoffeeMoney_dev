@@ -5,31 +5,37 @@
 	<meta charset="UTF-8">
 	<title>アイテム編集</title>
 	<link rel="stylesheet" th:href="@{/css/edit-item.css}">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
 </head>
 
 <body>
 
 	<h2>アイテム編集</h2>
+	<div class="item-card">
 
-	<form th:action="@{/item/update}" method="post">
-		<input type="hidden" name="id" th:value="${item.id}">
-		<input type="hidden" name="categoryId" th:value="${item.category.id}">
+		<form th:action="@{/item/update}" method="post" class="update-form">
+			<input type="hidden" name="id" th:value="${item.id}">
+			<input type="hidden" name="categoryId" th:value="${item.category.id}">
 
-		<label>名前：</label>
-		<input type="text" name="name" th:value="${item.name}"><br>
+			<label>名前：</label>
+			<input type="text" name="name" th:value="${item.name}">
 
-		<label>金額：</label>
-		<input type="number" name="price" th:value="${item.price}"><br>
+			<label>金額：</label>
+			<input type="number" name="price" th:value="${item.price}">
 
-		<button type="submit">更新</button>
-	</form>
+			<button type="submit" class="update-button">更新</button>
+		</form>
 
-	<form th:action="@{/item/delete}" method="post" onsubmit="return confirm('本当に削除しますか？');">
-		<input type="hidden" name="id" th:value="${item.id}">
-		<input type="hidden" name="categoryId" th:value="${item.category.id}">
-		<button type="submit" class="delete-button">削除</button>
-	</form>
-	<a th:href="@{/summary-top(categoryId=${item.category.id})}">戻る</a>
+		<form th:action="@{/item/delete}" method="post" class="delete-form" onsubmit="return confirm('本当に削除しますか？');">
+			<input type="hidden" name="id" th:value="${item.id}">
+			<input type="hidden" name="categoryId" th:value="${item.category.id}">
+			<button type="submit" class="delete-button">削除</button>
+		</form>
+
+	</div>
+
+	<a th:href="@{/summary-top(categoryId=${item.category.id})}" class="back-button">戻る</a>
 
 </body>
 

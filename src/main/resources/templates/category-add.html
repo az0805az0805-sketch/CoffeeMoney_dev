@@ -4,28 +4,30 @@
 <head>
 	<meta charset="UTF-8">
 	<title>カテゴリー追加</title>
+	<link rel="stylesheet" th:href="@{/css/category-add.css}">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
 
 	<h2>カテゴリー追加</h2>
 
-		<form action="/add-category" method="post">
-			<label>カテゴリー名：</label>
-			<input type="text" name="name" required>
+	<form action="/add-category" method="post">
+		<label>カテゴリー名：</label>
+		<input type="text" name="name" required>
 
-			<br><br>
+		<br><br>
 
-			<label>予算：</label>
-			<input type="number" name="budget" placeholder="例：3000">
+		<label>予算：</label>
+		<input type="number" name="budget" placeholder="例：3000">
 
-			<br><br>
+		<br><br>
 
-			<button type="submit">追加</button>
-		</form>
+		<button type="submit">追加</button>
+	</form>
 
-		<br>
-		<a href="/">戻る</a>
+	<br>
+	<a href="/">戻る</a>
 
 </body>
 
