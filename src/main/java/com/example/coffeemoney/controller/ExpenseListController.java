@@ -11,20 +11,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.coffeemoney.service.BudgetService;
 import com.example.coffeemoney.service.CategoryService;
 import com.example.coffeemoney.service.RecordService;
 
 @Controller
 public class ExpenseListController {
 	private final RecordService recordService;
-	private final BudgetService budgetService;
 	private final CategoryService categoryService;
 
-	public ExpenseListController(RecordService recordService, BudgetService budgetService,
+	public ExpenseListController(RecordService recordService,
 			CategoryService categoryService) {
 		this.recordService = recordService;
-		this.budgetService = budgetService;
 		this.categoryService = categoryService;
 	}
 
