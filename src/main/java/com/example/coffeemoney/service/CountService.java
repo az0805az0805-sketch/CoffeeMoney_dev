@@ -8,11 +8,11 @@ import org.springframework.stereotype.Service;
 import com.example.coffeemoney.repository.RecordRepository;
 
 @Service
-public class SummaryService {
+public class CountService {
 
 	private final RecordRepository recordRepository;
 
-	public SummaryService(RecordRepository recordRepository) {
+	public CountService(RecordRepository recordRepository) {
 		this.recordRepository = recordRepository;
 	}
 

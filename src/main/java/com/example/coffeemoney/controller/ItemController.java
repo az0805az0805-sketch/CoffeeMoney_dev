@@ -32,7 +32,7 @@ public class ItemController {
 			@RequestParam Integer price,
 			@RequestParam Integer categoryId) {
 		itemService.addItem(name, price, categoryId);
-		return "redirect:/summary-top?categoryId=" + categoryId;
+		return "redirect:/count?categoryId=" + categoryId;
 	}
 
 	//更新画面表示
@@ -52,7 +52,7 @@ public class ItemController {
 
 		itemService.updateItem(id, name, price);
 
-		return "redirect:/summary-top?categoryId=" + categoryId;
+		return "redirect:/count?categoryId=" + categoryId;
 	}
 	//アイテム削除
 	@PostMapping("/item/delete")
@@ -62,7 +62,7 @@ public class ItemController {
 
 	    itemService.deleteItem(id);
 
-	    return "redirect:/summary-top?categoryId=" + categoryId;
+	    return "redirect:/count?categoryId=" + categoryId;
 	}
 
 

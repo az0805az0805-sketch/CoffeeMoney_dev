@@ -36,7 +36,7 @@ public class CountController {
 	}
 
 	//カウント画面（summary-top）
-	@GetMapping("/summary-top")
+	@GetMapping("/count")
 	public String showSummary(
 			@RequestParam Integer categoryId,
 			Model model) {
@@ -52,7 +52,7 @@ public class CountController {
 
 		model.addAttribute("now", LocalDateTime.now());
 
-		return "summary-top";
+		return "count";
 	}
 
 	//レコード追加
@@ -63,6 +63,6 @@ public class CountController {
 
 		recordService.addRecord(itemId);
 
-		return "redirect:/summary-top?categoryId=" + categoryId;
+		return "redirect:/count?categoryId=" + categoryId;
 	}
 }

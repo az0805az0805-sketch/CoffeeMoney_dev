@@ -10,7 +10,7 @@ import com.example.coffeemoney.repository.CategoryRepository;
 import com.example.coffeemoney.repository.ItemRepository;
 
 @Service
-public class CategoryService {
+public class CategoryService  {
 
 	private final CategoryRepository categoryRepository;
 	private final ItemRepository itemRepository;
@@ -26,7 +26,7 @@ public class CategoryService {
 		return categoryRepository.findAll();
 	}
 
-	//カテゴリー1件取得（summary-top 用）
+	//カテゴリー1件取得（count 用）
 	public CategoryEntity getCategory(Integer categoryId) {
 		return categoryRepository.findById(categoryId)
 				.orElseThrow(() -> new IllegalArgumentException("Category not found"));

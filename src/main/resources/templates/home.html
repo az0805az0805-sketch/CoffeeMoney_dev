@@ -19,7 +19,7 @@
 
 	<div class="category-row" th:each="cat : ${categories}">
 
-		<a th:href="@{/summary-top(categoryId=${cat.id})}" class="category-link">
+		<a th:href="@{/count(categoryId=${cat.id})}" class="category-link">
 			<img th:src="@{/icons/coffee_chilled_cup.png}" alt="coffee" class="category-icon">
 			<span class="category-name" th:text="${cat.name}"></span>
 		</a>
