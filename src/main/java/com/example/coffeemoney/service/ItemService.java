@@ -55,9 +55,15 @@ public class ItemService {
 
 		itemRepository.save(item);
 	}
-	//アイテムを削除
-	public void deleteItem(Integer id) {
-		itemRepository.deleteById(id);
+
+	//アイテム削除
+	public Integer softDeleteItem(Integer id) {
+		ItemEntity item = itemRepository.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("アイテムが見つかりません: " + id));
+
+		item.setDeleted(true); // ← 論理削除フラグを立てる
+		itemRepository.save(item);
+		return item.getCategory().getId();
 	}
 
 }

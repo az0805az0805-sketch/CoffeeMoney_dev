@@ -21,4 +21,5 @@ public class CategoryEntity {
 	private String name;
 
 	private Integer budget; // 月間予算
+
 }

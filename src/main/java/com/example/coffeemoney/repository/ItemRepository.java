@@ -8,5 +8,10 @@ import com.example.coffeemoney.model.entity.ItemEntity;
 
 public interface ItemRepository extends JpaRepository<ItemEntity, Integer> {
 
-	List<ItemEntity> findByCategoryId(Integer CategoryId);
+	List<ItemEntity> findByCategoryIdAndDeletedFalse(Integer categoryId);
+
+	void deleteByCategoryId(Integer categoryId);
+
+	List<ItemEntity> findByCategoryId(Integer categoryId);
+
 }

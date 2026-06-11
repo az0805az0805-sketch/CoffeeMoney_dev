@@ -18,23 +18,20 @@
 	<p class="blink select-title">↓SELECT CATEGORY↓</p>
 
 	<div class="category-row" th:each="cat : ${categories}">
+	    <a th:href="@{/count(categoryId=${cat.id})}" class="category-link">
+	        <img th:src="@{/icons/coffee_chilled_cup.png}" alt="coffee" class="category-icon">
+	        <span class="category-name" th:text="${cat.name}"></span>
+	    </a>
 
-		<a th:href="@{/count(categoryId=${cat.id})}" class="category-link">
-			<img th:src="@{/icons/coffee_chilled_cup.png}" alt="coffee" class="category-icon">
-			<span class="category-name" th:text="${cat.name}"></span>
-		</a>
-		<div class="category-actions">
-			<!-- 更新 -->
-			<a th:href="@{/category/edit(id=${cat.id})}" class="edit-button">カテゴリーを編集</a>
+	    <div class="category-actions">
+	        <a th:href="@{/category/edit(id=${cat.id})}" class="edit-button">カテゴリーを編集</a>
 
-			<!-- 削除 -->
-			<form th:action="@{/category/delete}" method="post"
-				onsubmit="return confirm('このカテゴリーを削除すると関連アイテムも消えます。削除しますか？');">
-				<input type="hidden" name="categoryId" th:value="${cat.id}">
-				<button type="submit" class="delete-button">削除</button>
-			</form>
-		</div>
-
+	        <form th:action="@{/category/delete}" method="post"
+	              onsubmit="return confirm('このカテゴリーを削除すると関連アイテムも消えます。削除しますか？');">
+	            <input type="hidden" name="categoryId" th:value="${cat.id}">
+	            <button type="submit" class="delete-button">削除</button>
+	        </form>
+	    </div>
 	</div>
 
 	<hr>

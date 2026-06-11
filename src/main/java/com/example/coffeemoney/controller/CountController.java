@@ -28,14 +28,15 @@ public class CountController {
 		this.recordService = recordService;
 		this.categoryService = categoryService;
 	}
-	//ホーム画面
+
+	// ホーム画面
 	@GetMapping("/")
 	public String home(Model model) {
 		model.addAttribute("categories", categoryService.getAllCategories());
 		return "home";
 	}
 
-	//カウント画面（summary-top）
+	// カウント画面
 	@GetMapping("/count")
 	public String showSummary(
 			@RequestParam Integer categoryId,
@@ -44,7 +45,7 @@ public class CountController {
 		var category = categoryService.getCategory(categoryId);
 		model.addAttribute("category", category);
 
-		List<ItemEntity> items = itemRepository.findByCategoryId(categoryId);
+		List<ItemEntity> items = itemRepository.findByCategoryIdAndDeletedFalse(categoryId);
 		model.addAttribute("items", items);
 
 		int monthlyTotal = recordService.getMonthlyTotalByCategory(categoryId);
@@ -55,7 +56,7 @@ public class CountController {
 		return "count";
 	}
 
-	//レコード追加
+	// レコード追加（修正版）
 	@PostMapping("/record/add")
 	public String addRecord(
 			@RequestParam Integer itemId,
@@ -65,4 +66,5 @@ public class CountController {
 
 		return "redirect:/count?categoryId=" + categoryId;
 	}
+
 }

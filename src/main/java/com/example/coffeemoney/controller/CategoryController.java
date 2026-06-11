@@ -10,6 +10,7 @@ import com.example.coffeemoney.service.CategoryService;
 
 @Controller
 public class CategoryController {
+
 	private final CategoryService categoryService;
 
 	public CategoryController(CategoryService categoryService) {
@@ -25,11 +26,12 @@ public class CategoryController {
 	public String addCategory(
 			@RequestParam String name,
 			@RequestParam(required = false) Integer budget) {
+
 		categoryService.addCategory(name, budget);
 		return "redirect:/";
 	}
 
-	//カテゴリー削除
+	// カテゴリー削除（物理削除）
 	@PostMapping("/category/delete")
 	public String deleteCategory(@RequestParam Integer categoryId) {
 		categoryService.deleteCategory(categoryId);
@@ -42,7 +44,6 @@ public class CategoryController {
 		return "edit-category";
 	}
 
-	//カテゴリー更新
 	@PostMapping("/category/update")
 	public String updateCategory(
 			@RequestParam Integer id,
@@ -50,8 +51,6 @@ public class CategoryController {
 			@RequestParam Integer budget) {
 
 		categoryService.updateCategory(id, name, budget);
-
 		return "redirect:/";
 	}
-
 }
