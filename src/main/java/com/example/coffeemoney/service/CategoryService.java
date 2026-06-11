@@ -2,37 +2,42 @@ package com.example.coffeemoney.service;
 
 import java.util.List;
 
+import jakarta.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 
 import com.example.coffeemoney.model.entity.CategoryEntity;
 import com.example.coffeemoney.model.entity.ItemEntity;
 import com.example.coffeemoney.repository.CategoryRepository;
 import com.example.coffeemoney.repository.ItemRepository;
+import com.example.coffeemoney.repository.RecordRepository;
 
 @Service
-public class CategoryService  {
+public class CategoryService {
 
 	private final CategoryRepository categoryRepository;
 	private final ItemRepository itemRepository;
+	private final RecordRepository recordRepository;
+	
+
 
 	public CategoryService(CategoryRepository categoryRepository,
-			ItemRepository itemRepository) {
+			ItemRepository itemRepository,
+			RecordRepository recordRepository) {
 		this.categoryRepository = categoryRepository;
 		this.itemRepository = itemRepository;
+		this.recordRepository = recordRepository;
 	}
 
-	//カテゴリー一覧（home 用）
 	public List<CategoryEntity> getAllCategories() {
 		return categoryRepository.findAll();
 	}
 
-	//カテゴリー1件取得（count 用）
 	public CategoryEntity getCategory(Integer categoryId) {
 		return categoryRepository.findById(categoryId)
 				.orElseThrow(() -> new IllegalArgumentException("Category not found"));
 	}
 
-	//カテゴリー追加（CategoryController 用）
 	public void addCategory(String name, Integer budget) {
 		CategoryEntity category = new CategoryEntity();
 		category.setName(name);
@@ -40,19 +45,30 @@ public class CategoryService  {
 		categoryRepository.save(category);
 	}
 
-	//カテゴリー削除(紐ずくアイテムがあればアイテムも削除)	
+	@Transactional
 	public void deleteCategory(Integer categoryId) {
-		// 先にアイテム削除
-		List<ItemEntity> items = itemRepository.findByCategoryId(categoryId);
-		itemRepository.deleteAll(items);
 
-		// カテゴリー削除
-		categoryRepository.deleteById(categoryId);
+		// ① カテゴリー取得
+		CategoryEntity category = categoryRepository.findById(categoryId)
+				.orElseThrow(() -> new IllegalArgumentException("Category not found"));
+
+		// ② アイテム一覧取得
+		List<ItemEntity> items = itemRepository.findByCategoryId(categoryId);
+
+		// ③ アイテムに紐づくレコード削除
+		for (ItemEntity item : items) {
+			recordRepository.deleteByItemId(item.getId());
+		}
+
+		// ④ アイテム削除
+		itemRepository.deleteByCategoryId(categoryId);
+
+		// ⑤ カテゴリー削除
+		categoryRepository.delete(category);
 	}
-	//カテゴリーの更新
+
 	public void updateCategory(Integer id, String name, Integer budget) {
 
-		//既存のカテゴリーを取得（存在しなければ例外）
 		var category = categoryRepository.findById(id)
 				.orElseThrow(() -> new IllegalArgumentException("カテゴリーが見つかりません: " + id));
 
@@ -61,5 +77,4 @@ public class CategoryService  {
 
 		categoryRepository.save(category);
 	}
-
 }

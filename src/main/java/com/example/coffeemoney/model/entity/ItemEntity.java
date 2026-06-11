@@ -29,6 +29,9 @@ public class ItemEntity {
 	@JoinColumn(name = "category_id", nullable = false)
 	private CategoryEntity category;
 
+	@Column(nullable = false)
+	private Boolean deleted = false;
+
 	public Integer getId() {
 		return id;
 	}
@@ -60,6 +63,5 @@ public class ItemEntity {
 	public void setCategory(CategoryEntity category) {
 		this.category = category;
 	}
-	
-	
+
 }

@@ -22,7 +22,7 @@ public interface RecordRepository extends JpaRepository<RecordEntity, Integer> {
 			Integer categoryId,
 			LocalDateTime start,
 			LocalDateTime end);
-	
+
 	@Query("""
 			    SELECT COALESCE(SUM(r.amount), 0)
 			    FROM RecordEntity r
@@ -85,8 +85,8 @@ public interface RecordRepository extends JpaRepository<RecordEntity, Integer> {
 			""")
 	Integer getMonthlyTotal(LocalDateTime start, LocalDateTime end);
 
-    @Query("SELECT r FROM RecordEntity r WHERE r.createdAt BETWEEN :start AND :end")
-    List<RecordEntity> findByCreatedAtBetween(LocalDateTime start, LocalDateTime end);
+	@Query("SELECT r FROM RecordEntity r WHERE r.createdAt BETWEEN :start AND :end")
+	List<RecordEntity> findByCreatedAtBetween(LocalDateTime start, LocalDateTime end);
 
 	@Query("""
 			    SELECT COALESCE(SUM(r.amount), 0)
@@ -98,5 +98,7 @@ public interface RecordRepository extends JpaRepository<RecordEntity, Integer> {
 			      AND r.createdAt < :end
 			""")
 	Integer getMonthlyTotalByCategory(Integer categoryId, LocalDateTime start, LocalDateTime end);
+
+	void deleteByItemId(Integer itemId);
 
 }

@@ -42,6 +42,7 @@ public class ItemController {
 		model.addAttribute("item", item);
 		return "edit-item";
 	}
+
 	//更新処理
 	@PostMapping("/item/update")
 	public String updateItem(
@@ -54,16 +55,12 @@ public class ItemController {
 
 		return "redirect:/count?categoryId=" + categoryId;
 	}
+
 	//アイテム削除
 	@PostMapping("/item/delete")
-	public String deleteItem(
-	        @RequestParam Integer id,
-	        @RequestParam Integer categoryId) {
-
-	    itemService.deleteItem(id);
-
-	    return "redirect:/count?categoryId=" + categoryId;
+	public String deleteItem(@RequestParam Integer id) {
+		Integer categoryId = itemService.softDeleteItem(id);
+		return "redirect:/count?categoryId=" + categoryId;
 	}
-
 
 }
